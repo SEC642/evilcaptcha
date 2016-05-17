@@ -24,7 +24,7 @@ function encrypt($str, $key, $iv)
 }
 
 function decrypt($str, $key, $iv)
-{  
+{
     $str = mcrypt_decrypt(MCRYPT_DES, $key, $str, MCRYPT_MODE_CBC, $iv);
 
     $block = mcrypt_get_block_size('des', 'cbc');
@@ -70,7 +70,6 @@ function randval($len) {
     return $return;
 }
 
-function hex2bin($hexstr) {
+function hex22bin($hexstr) {
 	return pack("H*", $hexstr);
 }
-

@@ -65,55 +65,55 @@ function produceimage($text) {
 }
 
 function randomfile($folder='', $extensions='.*'){
- 
+
     // fix path:
     $folder = trim($folder);
     $folder = ($folder == '') ? './' : $folder;
- 
+
     // check folder:
     if (!is_dir($folder)){ die('invalid folder given!'); }
- 
+
     // create files array
     $files = array();
- 
+
     // open directory
     if ($dir = @opendir($folder)){
- 
+
         // go trough all files:
         while($file = readdir($dir)){
- 
-            if (!preg_match('/^\.+$/', $file) and 
+
+            if (!preg_match('/^\.+$/', $file) and
                 preg_match('/\.('.$extensions.')$/', $file)){
- 
+
                 // feed the array:
-                $files[] = $file;                
-            }            
-        }        
+                $files[] = $file;
+            }
+        }
         // close directory
-        closedir($dir);    
+        closedir($dir);
     }
     else {
         die('Could not open the folder "'.$folder.'"');
     }
- 
+
     if (count($files) == 0){
         die('No files were found :-(');
     }
- 
+
     // seed random function:
     mt_srand((double)microtime()*1000000);
- 
+
     // get an random index:
     $rand = mt_rand(0, count($files)-1);
- 
+
     // check again:
     if (!isset($files[$rand])){
         die('Array index was not found! very strange!');
     }
- 
+
     // return the random file:
     return $folder . $files[$rand];
- 
+
 }
 
 
@@ -121,9 +121,9 @@ function randomfile($folder='', $extensions='.*'){
 $key = md5("lenovo");
 
 if (isset($_GET['enc']) and !isset($_GET['captcha'])) {
-	// Decrypt enc, get the string and produce the image 
-    $iv = hex2bin(substr($_GET['enc'], 0, 16));
-    $enc = hex2bin(substr($_GET['enc'], 16));
+	// Decrypt enc, get the string and produce the image
+    $iv = hex22bin(substr($_GET['enc'], 0, 16));
+    $enc = hex22bin(substr($_GET['enc'], 16));
 
 	list ($status, $plaintext) = decrypt($enc, $key, $iv);
     if ($status == 0) {
@@ -133,8 +133,8 @@ if (isset($_GET['enc']) and !isset($_GET['captcha'])) {
 	}
 } else if (isset($_GET['enc']) and isset($_GET['captcha'])) {
     // Decrypt and validate string
-    $iv = hex2bin(substr($_GET['enc'], 0, 16));
-    $enc = hex2bin(substr($_GET['enc'], 16));
+    $iv = hex22bin(substr($_GET['enc'], 0, 16));
+    $enc = hex22bin(substr($_GET['enc'], 16));
 
 	list ($status, $plaintext) = decrypt($enc, $key, $iv);
     if ($status != 0) {
